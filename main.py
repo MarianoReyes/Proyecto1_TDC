@@ -21,11 +21,15 @@ if __name__ == '__main__':
     # llamada a metodo para convertir afn
     conversionAFN.conversion()
 
-    # listas de estados y transiciones del AFN
+    # listas de estados, simbolos, estado inicial, estado final y transiciones del AFN
     estados = conversionAFN.estados
     transiciones = conversionAFN.transiciones_splited
+    estado_inicial = conversionAFN.e0
+    estado_final = conversionAFN.ef
+    simbolos = conversionAFN.simbolos
 
     # instacia de clase para convertir AFN a AFD
-    conversionAFD = AFNtoAFD(estados, transiciones)
+    conversionAFD = AFNtoAFD(estados, transiciones,
+                             estado_inicial, estado_final, simbolos)
     # llamada al metodo para convertir a AFD
     conversionAFD.conversion()

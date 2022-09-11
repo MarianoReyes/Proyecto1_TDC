@@ -10,10 +10,11 @@ class PostifixToAFN():
         self.postfix = postfix
         self.estados = []
         self.estados_list = []
-        self.e0 = 0
+        self.e0 = None
         self.ef = None
         self.transiciones = []
         self.transiciones_splited = []
+        self.simbolos = []
 
     def operando(self, caracter):
         if(caracter.isalpha() or caracter == "ε"):
@@ -29,7 +30,7 @@ class PostifixToAFN():
                 if i not in simbolos:
                     simbolos.append(i)
 
-        simbolos = sorted(simbolos)
+        self.simbolos = sorted(simbolos)
 
         afn_final = []
         stack = []
@@ -119,6 +120,10 @@ class PostifixToAFN():
                 self.transiciones_splited.append([c1, "ε", r11])
                 self.transiciones_splited.append([r12, "ε", c2])
                 self.transiciones_splited.append([r22, "ε", c2])
+
+        # asignacion de estados finales e iniciales
+        self.e0 = start
+        self.ef = end
 
         # print(afn_final)
         df = pd.DataFrame(afn_final)
