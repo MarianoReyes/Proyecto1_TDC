@@ -8,13 +8,15 @@ if __name__ == '__main__':
     # Expresion de prueba: (b|b)*abb(a|b)*
     # Simbolo epsilon  ε
     exp = "(b|b)*abb(a|b)*"
+    print("\nRegex: ", exp)
+
     conversion = convertExpression(len(exp))
 
     # llamada de funcion para convertir a postfix
     conversion.RegexToPostfix(exp)
-    print("Regex: ", exp)
+
     postfix = conversion.res
-    print("Postfix: ", postfix)
+    print("\nPostfix: ", postfix)
 
     # instancia de clase para convertir a AFN
     conversionAFN = PostifixToAFN(postfix)

@@ -16,4 +16,4 @@ class AFNtoAFD():
         self.simbolos_afn.append('ε')
 
     def conversion(self):
-        print("\nAcá va el metodo de conversion de afn a afd")
+        print("\nConvirtiendo de AFN a AFD...")

@@ -23,6 +23,7 @@ class PostifixToAFN():
             return False
 
     def conversion(self):
+        print("\nConvirtiendo de Postfix a AFN...")
         simbolos = []
         postfix = self.postfix
         for i in postfix:
@@ -153,3 +154,5 @@ class PostifixToAFN():
             f.write("Transiciones: " + str(self.transiciones))
             f.write("\n")
             f.write(string_afn)
+
+        print("\nArchivo de AFN escrito con éxito")
