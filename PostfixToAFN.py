@@ -1,9 +1,19 @@
+'''
+CLASE DEDICADA A LA CONVERSION DE UNA EXPRESION POSTFIX A AFN
+'''
+
 import pandas as pd
 
 
 class PostifixToAFN():
     def __init__(self, postfix):
         self.postfix = postfix
+        self.estados = []
+        self.estados_list = []
+        self.e0 = 0
+        self.ef = None
+        self.transiciones = []
+        self.transiciones_splited = []
 
     def operando(self, caracter):
         if(caracter.isalpha() or caracter == "ε"):
@@ -30,13 +40,6 @@ class PostifixToAFN():
         c1 = 0
         c2 = 0
 
-        estados = []
-        estados_list = []
-        e0 = 0
-        ef = None
-        transiciones = []
-        transiciones_splited = []
-
         # implementation del algoritmo de thompson
 
         for i in postfix:
@@ -44,28 +47,28 @@ class PostifixToAFN():
             if i in simbolos:
                 counter = counter+1
                 c1 = counter
-                if c1 not in estados:
-                    estados.append(c1)
+                if c1 not in self.estados:
+                    self.estados.append(c1)
                 counter = counter+1
                 c2 = counter
-                if c2 not in estados:
-                    estados.append(c2)
+                if c2 not in self.estados:
+                    self.estados.append(c2)
                 afn_final.append({})
                 afn_final.append({})
                 stack.append([c1, c2])
                 afn_final[c1][i] = c2
-                transiciones_splited.append([c1, i, c2])
+                self.transiciones_splited.append([c1, i, c2])
             # si es un kleene
             elif i == '*':
                 r1, r2 = stack.pop()
                 counter = counter+1
                 c1 = counter
-                if c1 not in estados:
-                    estados.append(c1)
+                if c1 not in self.estados:
+                    self.estados.append(c1)
                 counter = counter+1
                 c2 = counter
-                if c2 not in estados:
-                    estados.append(c2)
+                if c2 not in self.estados:
+                    self.estados.append(c2)
                 afn_final.append({})
                 afn_final.append({})
                 stack.append([c1, c2])
@@ -75,10 +78,10 @@ class PostifixToAFN():
                     start = c1
                 if end == r2:
                     end = c2
-                transiciones_splited.append([r2, "ε", r1])
-                transiciones_splited.append([r2, "ε", c2])
-                transiciones_splited.append([c1, "ε", r1])
-                transiciones_splited.append([c1, "ε", c2])
+                self.transiciones_splited.append([r2, "ε", r1])
+                self.transiciones_splited.append([r2, "ε", c2])
+                self.transiciones_splited.append([c1, "ε", r1])
+                self.transiciones_splited.append([c1, "ε", c2])
             # si es una concatenacion
             elif i == '.':
                 r11, r12 = stack.pop()
@@ -89,18 +92,17 @@ class PostifixToAFN():
                     start = r21
                 if end == r22:
                     end = r12
-                transiciones_splited.append([r22, "ε", r11])
-
+                self.transiciones_splited.append([r22, "ε", r11])
             # si es un or
             elif i == "|":
                 counter = counter+1
                 c1 = counter
-                if c1 not in estados:
-                    estados.append(c1)
+                if c1 not in self.estados:
+                    self.estados.append(c1)
                 counter = counter+1
                 c2 = counter
-                if c2 not in estados:
-                    estados.append(c2)
+                if c2 not in self.estados:
+                    self.estados.append(c2)
                 afn_final.append({})
                 afn_final.append({})
                 r11, r12 = stack.pop()
@@ -113,37 +115,36 @@ class PostifixToAFN():
                     start = c1
                 if end == r22 or end == r12:
                     end = c2
-                transiciones_splited.append([c1, "ε", r21])
-                transiciones_splited.append([c1, "ε", r11])
-                transiciones_splited.append([r12, "ε", c2])
-                transiciones_splited.append([r22, "ε", c2])
+                self.transiciones_splited.append([c1, "ε", r21])
+                self.transiciones_splited.append([c1, "ε", r11])
+                self.transiciones_splited.append([r12, "ε", c2])
+                self.transiciones_splited.append([r22, "ε", c2])
 
         # print(afn_final)
         df = pd.DataFrame(afn_final)
-        for i in range(len(transiciones_splited)):
-            transiciones.append(
-                "(" + str(transiciones_splited[i][0]) + " - " + str(transiciones_splited[i][1]) + " - " + str(transiciones_splited[i][2]) + ")")
-        transiciones = ', '.join(transiciones)
+        string_afn = df.to_string()
+        for i in range(len(self.transiciones_splited)):
+            self.transiciones.append(
+                "(" + str(self.transiciones_splited[i][0]) + " - " + str(self.transiciones_splited[i][1]) + " - " + str(self.transiciones_splited[i][2]) + ")")
+        self.transiciones = ', '.join(self.transiciones)
 
-        for i in range(len(estados)):
-            if i == len(estados)-1:
+        for i in range(len(self.estados)):
+            if i == len(self.estados)-1:
                 ef = i
-            estados_list.append(str(estados[i]))
-        estados_list = ", ".join(estados_list)
+            self.estados_list.append(str(self.estados[i]))
+        self.estados_list = ", ".join(self.estados_list)
 
         with open('afn_regex.txt', 'a', encoding="utf-8") as f:
-            string_afn = df.to_string()
-
             f.write("AFN  a partir de la Expresión Regular-->")
             f.write("\n")
             f.write("Símbolos: "+', '.join(simbolos))
             f.write("\n")
-            f.write("Estados:  " + str(estados_list))
+            f.write("Estados:  " + str(self.estados_list))
             f.write("\n")
-            f.write("Estado inicial: { " + str(e0) + " }")
+            f.write("Estado inicial: { " + str(self.e0) + " }")
             f.write("\n")
             f.write("Estados de aceptación: { " + str(ef) + " }")
             f.write("\n")
-            f.write("Transiciones: " + str(transiciones))
+            f.write("Transiciones: " + str(self.transiciones))
             f.write("\n")
             f.write(string_afn)
