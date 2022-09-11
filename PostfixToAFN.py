@@ -32,7 +32,7 @@ class PostifixToAFN():
 
         estados = []
         e0 = 0
-        ef = []
+        ef = None
         transiciones = []
 
         # implementation del algoritmo de thompson
@@ -123,6 +123,8 @@ class PostifixToAFN():
         transiciones = ', '.join(transiciones)
 
         for i in range(len(estados)):
+            if i == len(estados)-1:
+                ef = i
             estados[i] = str(estados[i])
         estados = ", ".join(estados)
 
@@ -137,7 +139,7 @@ class PostifixToAFN():
             f.write("\n")
             f.write("Estado inicial: { " + str(e0) + " }")
             f.write("\n")
-            f.write("Estados de aceptación: { " + str(', '.join(ef)) + " }")
+            f.write("Estados de aceptación: { " + str(ef) + " }")
             f.write("\n")
             f.write("Transiciones: " + str(transiciones))
             f.write("\n")
