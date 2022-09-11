@@ -13,7 +13,4 @@ class AFNtoAFD():
         self.simbolos_afn = simbolos_afn
 
     def conversion(self):
-        nfa = {}
-        n = len(self.estados_afn)  # Enter total no. of states
-        # Enter total no. of transitions/paths eg: a,b so input 2 for a,b,c input 3
-        t = len(self.transiciones_afn)
+        print("\nAcá va el metodo de conversion de afn a afd")
