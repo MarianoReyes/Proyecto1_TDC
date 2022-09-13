@@ -18,84 +18,24 @@ class AFNtoAFD():
 
     def conversion(self):
         print("\nConvirtiendo de AFN a AFD...")
-        afn = self.afn
+        #afn = self.afn
         numero_estados = len(self.estados_afn)
         numero_transiciones = len(self.transiciones_afn)
 
-        # print(afn)
+        #se asignan valores de nuevo al afn
+        afn = {}                                 
+        for estado in range(numero_estados):  
+            afn[estado] = {} 
+            reaching_state = []
+            for j in range(len(self.simbolos_afn)):
+                path = self.simbolos_afn[j]
+                for j in range(numero_transiciones):               
+                    reaching_state = [x[2] for x in self.transiciones_afn if x[0] == estado and x[1] == path]                 
+                    afn[estado][path] = reaching_state   
+
+        print(afn)
         afn_table = pd.DataFrame(afn)
-        print(afn_table)
+        print(afn_table.transpose())
         # estado final
         afn_final_state = self.estado_final_afn
-        ###################################################
-
-        # todos los estados nuevos creados para el afd
-        new_states_list = []  
-        # afd generado
-        afd = {}  
-        # conatins all the states in afn plus the states created in afd are also appended further
-        keys_list = (x[0] for x in afn)
-        # list of all the paths eg: [a,b] or [0,1]
-        path_list = (x[2] for x in afn)
-
-        ###################################################
-
-        # Computing first row of afd transition table
-
-        afd[keys_list[0]] = {}  # creating a nested dictionary in afd
-        for y in range(numero_transiciones):
-            # creating a single string from all the elements of the list which is a new state
-            var = "".join(afn[keys_list[0]][path_list[y]])
-            # assigning the state in afd table
-            afd[keys_list[0]][path_list[y]] = var
-            if var not in keys_list:  # if the state is newly created
-                # then append it to the new_states_list
-                new_states_list.append(var)
-                # as well as to the keys_list which contains all the states
-                keys_list.append(var)
-
-        ###################################################
-
-        # Computing the other rows of afd transition table
-
-        # consition is true only if the new_states_list is not empty
-        while len(new_states_list) != 0:
-            # taking the first element of the new_states_list and examining it
-            afd[new_states_list[0]] = {}
-            for _ in range(len(new_states_list[0])):
-                for i in range(len(path_list)):
-                    temp = []  # creating a temporay list
-                    for j in range(len(new_states_list[0])):
-                        # taking the union of the states
-                        temp += afn[new_states_list[0][j]][path_list[i]]
-                    s = ""
-                    # creating a single string(new state) from all the elements of the list
-                    s = s.join(temp)
-                    if s not in keys_list:  # if the state is newly created
-                        # then append it to the new_states_list
-                        new_states_list.append(s)
-                        # as well as to the keys_list which contains all the states
-                        keys_list.append(s)
-                    # assigning the new state in the afd table
-                    afd[new_states_list[0]][path_list[i]] = s
-
-            # Removing the first element in the new_states_list
-            new_states_list.remove(new_states_list[0])
-
-        print("\nafd :- \n")
-        print(afd)  # Printing the afd created
-        print("\nPrinting afd table :- ")
-        afd_table = pd.DataFrame(afd)
-        print(afd_table.transpose())
-
-        afd_states_list = list(afd.keys())
-        afd_final_states = []
-        for x in afd_states_list:
-            for i in x:
-                if i in afn_final_state:
-                    afd_final_states.append(x)
-                    break
-
-        # Printing Final states of afd
-        print("\nFinal states of the afd are : ", afd_final_states)
-
+        

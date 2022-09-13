@@ -2,6 +2,7 @@
 CLASE DEDICADA A LA CONVERSION DE UNA EXPRESION POSTFIX A AFN
 '''
 
+from re import S
 import pandas as pd
 
 
