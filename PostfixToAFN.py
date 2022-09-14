@@ -4,6 +4,7 @@ CLASE DEDICADA A LA CONVERSION DE UNA EXPRESION POSTFIX A AFN
 
 from re import S
 import pandas as pd
+import os.path
 
 
 class PostifixToAFN():
@@ -140,20 +141,24 @@ class PostifixToAFN():
                 ef = i
             self.estados_list.append(str(self.estados[i]))
         self.estados_list = ", ".join(self.estados_list)
+        
+        if os.path.exists("afn_regex.txt"):
+            print("\nArchivo AFN existente")
 
-        with open('afn_regex.txt', 'a', encoding="utf-8") as f:
-            f.write("AFN  a partir de la Expresión Regular -->")
-            f.write("\n")
-            f.write("Símbolos: "+', '.join(simbolos))
-            f.write("\n")
-            f.write("Estados:  " + str(self.estados_list))
-            f.write("\n")
-            f.write("Estado inicial: { " + str(self.e0) + " }")
-            f.write("\n")
-            f.write("Estados de aceptación: { " + str(ef) + " }")
-            f.write("\n")
-            f.write("Transiciones: " + str(self.transiciones))
-            f.write("\n")
-            f.write(string_afn)
+        else:
+            with open('afn_regex.txt', 'a', encoding="utf-8") as f:
+                f.write("AFN  a partir de la Expresión Regular -->")
+                f.write("\n")
+                f.write("Símbolos: "+', '.join(simbolos))
+                f.write("\n")
+                f.write("Estados:  " + str(self.estados_list))
+                f.write("\n")
+                f.write("Estado inicial: { " + str(self.e0) + " }")
+                f.write("\n")
+                f.write("Estados de aceptación: { " + str(ef) + " }")
+                f.write("\n")
+                f.write("Transiciones: " + str(self.transiciones))
+                f.write("\n")
+                f.write(string_afn)
 
-        print("\nArchivo de AFN escrito con éxito")
+            print("\nArchivo de AFN escrito con éxito")
