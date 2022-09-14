@@ -3,6 +3,12 @@ CLASE DEDICADA A LA CONVERSION DE UN AFN A UN AFD
 '''
 import pandas as pd
 
+#variables
+steps=[]
+state_index=0 #contiene qué estado tendrá una transición generada a continuación
+alphabet_index = 0 #alphabet_index contiene qué símbolo se utilizará para generar la siguiente transición
+unreachableStates = undefined #los estados que no se alcanzan
+redundantStates = undefined #redundantStates es la matriz de estados que se pueden combinar en un solo estado
 
 class AFNtoAFD():
     def __init__(self, estados_afn, transiciones_afn, estado_inicial_afn, estado_final_afn, simbolos_afn, afn):
