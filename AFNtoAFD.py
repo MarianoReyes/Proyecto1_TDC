@@ -3,12 +3,7 @@ CLASE DEDICADA A LA CONVERSION DE UN AFN A UN AFD
 '''
 import pandas as pd
 
-#variables
-steps=[]
-state_index=0 #contiene qué estado tendrá una transición generada a continuación
-alphabet_index = 0 #alphabet_index contiene qué símbolo se utilizará para generar la siguiente transición
-unreachableStates = undefined #los estados que no se alcanzan
-redundantStates = undefined #redundantStates es la matriz de estados que se pueden combinar en un solo estado
+
 
 class AFNtoAFD():
     def __init__(self, estados_afn, transiciones_afn, estado_inicial_afn, estado_final_afn, simbolos_afn, afn):
@@ -24,7 +19,25 @@ class AFNtoAFD():
         self.simbolos_afn.append('ε')
         # lista de estado inicial de AFD
         self.e_closure = []
+        
+        #variables
+        self.afd= None
+        self.steps=[]
+        self.state_index=0 #contiene qué estado tendrá una transición generada a continuación
+        self.alphabet_index = 0 #alphabet_index contiene qué símbolo se utilizará para generar la siguiente transición
+        self.unreachableStates = None #los estados que no se alcanzan
+        self.redundantStates = None #redundantStates es la matriz de estados que se pueden combinar en un solo estado
 
+    def NextStep():
+        if (self.dfa == None): return 'initialize'
+        if (self.state_index < self.dfa.states.length): return 'add_transition'
+
+        if (!self.unreachableStates) { self.unreachableStates = self.getUnreachableStates() }
+        if (self.unreachableStates.length > 0): return 'delete_state'
+
+        if (!self.redundantStates) { self.redundantStates = self.getRedundantStates() }
+        if (self.redundantStates.length > 0): return 'merge_states'
+        
     def verificar_path(self, estado):
         '''
         desde el 6 pasa al 4 llega al 0 o 2 y se detiene
