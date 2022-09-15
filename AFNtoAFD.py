@@ -37,6 +37,42 @@ class AFNtoAFD():
 
         if (!self.redundantStates) { self.redundantStates = self.getRedundantStates() }
         if (self.redundantStates.length > 0): return 'merge_states'
+    
+    """ def getUnreachableStates (tempDFA = undefined, list = []) {
+        if (!tempDFA) {
+            tempDFA = this.dfa.clone()
+        }
+
+        const nodesWithIncomingEdges = []
+
+        // Iterate through all transitions and add the end nodes to the nodesWithIncomingEdges array
+        for (const state of tempDFA.states) {
+            for (const symbol of tempDFA.alphabet) {
+                const node = tempDFA.transitions[state][symbol].join(',')
+
+                // Don't consider nodes that have a transition back to themselves
+                if (node !== state) nodesWithIncomingEdges.push(node)
+            }
+        }
+
+        // The list of unreachable states are those that don't exist in the nodesWithIncomingEdges array
+        // Make sure the start state is always in the final DFA by filtering it out of the resulting array
+        const nodesWithoutIncomingEdges = tempDFA.states.filter(s => !nodesWithIncomingEdges.includes(s) && s !== tempDFA.startState)
+
+        // If there were unreachable nodes, delete them and then recursively search for more
+        if (nodesWithoutIncomingEdges.length > 0) {
+            // Remove the nodes from the temporary DFA
+            nodesWithoutIncomingEdges.forEach(n => tempDFA.removeState(n))
+
+            // Recursively search for more unreachable nodes after deletion
+            // Concat the unreachable nodes to the running list
+            list = this.getUnreachableStates(tempDFA, list.concat(nodesWithoutIncomingEdges))
+        }
+
+        // Remove duplicates from the list by spreading it as a Set
+        return [...new Set(list)]
+    }
+         """
         
     def verificar_path(self, estado):
         '''
