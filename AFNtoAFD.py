@@ -28,31 +28,11 @@ class AFNtoAFD():
         self.unreachableStates = None #los estados que no se alcanzan
         self.redundantStates = None #redundantStates es la matriz de estados que se pueden combinar en un solo estado
         self.reachablestates = None #losestados que son alcanzados
-    
-    def e_closure(self,afn):
-        
-        estados = self.estados_afn
-        temporal=[estados] #contenedor temporal
-        estados_e=[estados] #los estados que se muevan con e
-        
-        for x in range (len(temporal)):
-            #introduce los estados que tienen el epsilon
-            reachablestates = afn[x]["ε"]
-            print(estados_e)
-            print(temporal)
-            
-            for estados in reachablestates:
-                if estados not in estados_e:
-                    estados_e.append(estados)
-                    temporal.append(estados)
-
-            print(estados_e)
-            print(temporal)
-            
-        print(estados_e) 
-    
-    def conversion(self):
         print("\nConvirtiendo de AFN a AFD...")
+    
+    def e_closure(self):
+        
+       
         #afn = self.afn
         numero_estados = len(self.estados_afn)
         numero_transiciones = len(self.transiciones_afn)
@@ -69,7 +49,20 @@ class AFNtoAFD():
                     afn[estado][path] = reaching_state   
 
         print(afn)
-        e_closure(afn)
+        
+        #convertir AFN A AFD
+        estados = self.estados_afn
+        temporal=[estados] #contenedor temporal
+        estados_e=[estados] #los estados que se muevan con e
+        
+        for x in range (len(temporal)):
+            #introduce los estados que tienen el epsilon
+             if self.transiciones_afn[x][1] == "ε":
+                 estados_e.append(self.transiciones_afn[x][1])
+                        
+    
+        print("A: ",sorted(estados_e))   
+        print(estados_e) 
         
         
     

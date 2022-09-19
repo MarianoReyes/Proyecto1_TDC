@@ -35,4 +35,4 @@ if __name__ == '__main__':
     conversionAFD = AFNtoAFD(estados, transiciones,
                              estado_inicial, estado_final, simbolos, afn)
     # llamada al metodo para convertir a AFD
-    conversionAFD.conversion()
+    conversionAFD.e_closure()
