@@ -1,4 +1,5 @@
 
+from turtle import st
 from Node import Node
 from leaf import Leaf
 
@@ -114,6 +115,79 @@ class AFD():
 
                 self.nodes += [left_leaf, root]
                 return root
+            
+        # Operacion kleen
+        def operator_kleene(self, leaf):
+            operator = '*'
+            if isinstance(leaf, Leaf):
+                root = Leaf(operator, None, True, [leaf], True)
+                self.nodes += [root]
+                return root
+
+            else:
+                id_left = None
+                if leaf != 'ε':
+                    id_left = self.get_id()
+
+                left_leaf = Leaf(leaf, id_left, False, [], False)
+                root = Leaf(operator, None, True, [left_leaf], True)
+                self.nodes += [left_leaf, root]
+
+                return root
+            
+        # Operacion concatenacion
+        def operator_concat(self, left, right):
+            operator = '.'
+            if isinstance(left, Leaf) and isinstance(right, Leaf):
+                root = Leaf(operator, None, True, [left, right], left.nullable and right.nullable)
+                self.nodes += [root]
+                return root
+
+            elif not isinstance(left, Leaf) and not isinstance(right, Leaf):
+                id_left = None
+                id_right = None
+                if left != 'ε':
+                    id_left = self.get_id()
+                if right != 'ε':
+                    id_right = self.get_id()
+
+                left_leaf = Leaf(left, id_left, False, [], False)
+                right_leaf = Leaf(right, id_right, False, [], False)
+                root = Leaf(operator, None, True, [left_leaf, right_leaf], left_leaf.nullable and right_leaf.nullable)
+
+                self.nodes += [left_leaf, right_leaf, root]
+                return root
+
+            elif isinstance(left, Leaf) and not isinstance(right, Leaf):
+                id_right = None
+                if right != 'ε':
+                    id_right = self.get_id()
+                
+                right_leaf = Leaf(right, id_right, False, [], False)
+                root = Leaf(operator, None, True, [left, right_leaf], left.nullable and right_leaf.nullable)
+
+                self.nodes += [right_leaf, root]
+                return root
+            
+            elif not isinstance(left, Leaf) and isinstance(right, Leaf):
+                id_left = None
+                if left != 'ε':
+                    id_left = self.get_id()
+                
+                left_leaf = Leaf(left, id_left, False, [], False)
+                root = Leaf(operator, None, True, [left_leaf, right], left_leaf.nullable and right.nullable)
+
+                self.nodes += [left_leaf, root]
+                return root
+            
+        # Implementacion de Move para la simulacion
+        def simulate_move(self, Nodo, symbol):
+            move = None
+            for i in self.transitions:
+                if i[0] == Nodo and i[1] == symbol:
+                    move = i[2]
+
+            return move
         
         def build_tree(self,regex):
             stack =[] #guarda simbolos
@@ -131,4 +205,40 @@ class AFD():
                         stack.append(root)
                         last_in = self.peek_stack(op)
                     op.pop()
+                else:
+                    last_in = self.peek_stack(op)
+                    while last_in is not None and last_in not in '()' and self.preceding_operator(last_in, character):
+                        root = self.operate(op,stack)
+                        stack.append(root)
+                        last_in = self.peek_steck(op)
+                    op.append(character)
+                    
+            while self.peek_stack(op) is not None:
+                root = self.operate(op,stack)
+                stack.append(root)
+            self.root=stack.pop()
+            
+    # Crea las transiciones del grafo
+    def create_transitions(self):
+        f = {}
+        for t in self.transitions:
+            i, s, fi = [*t]
+
+            if i not in f.keys():
+                f[i] = {}
+            f[i][s] = fi
+
+        return f
+    
+    # Simulacion de AFD
+    def simulate_string(self, exp):
+        start = self.init_state
+        for e in exp:
+            start = self.simulate_move(start, e)
+            if start == None:
+                return 'no'
+        if start in self.acc_states:
+            return 'yes'
+        return 'no'
+
         

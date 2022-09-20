@@ -19,7 +19,7 @@ class Node():
         a = [str(i) for i in a]
         self.id = ', '.join(a)
 
-    # Metodo para crear ID unico para hoja de arbol sintactico.
+    # Metodo para crear ID unico para la hoja 
     def CreateID2(self, nodos):
         a = [n for n in nodos]
         a.sort()
