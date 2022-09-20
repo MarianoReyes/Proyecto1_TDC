@@ -2,6 +2,7 @@ from RegexToPostfix import convertExpression
 from PostfixToAFN import PostifixToAFN
 from AFNtoAFD import AFNtoAFD
 from RegexAFD import *
+from AFD import AFD
 
 # main del programa
 if __name__ == '__main__':
@@ -42,4 +43,6 @@ if __name__ == '__main__':
     regext = regex(exp,True)
     print(regext)
     prueba=input("Ingrese el string para la simulacion: ")
+    
+    syntax = AFD(regext)
     
