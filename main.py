@@ -1,6 +1,7 @@
 from RegexToPostfix import convertExpression
 from PostfixToAFN import PostifixToAFN
 from AFNtoAFD import AFNtoAFD
+from RegexAFD import *
 
 # main del programa
 if __name__ == '__main__':
@@ -8,8 +9,6 @@ if __name__ == '__main__':
     # Simbolo epsilon  ε
     exp = "(b|b)*abb(a|b)*"
     print("\nRegex: ", exp)
-
-    prueba = "babba"
 
     conversion = convertExpression(len(exp))
 
@@ -35,6 +34,11 @@ if __name__ == '__main__':
     # instacia de clase para convertir AFN a AFD
     conversionAFD = AFNtoAFD(estados, transiciones,
                              estado_inicial, estado_final, simbolos, afn)
-
     # llamada al metodo para convertir a AFD
     conversionAFD.conversion()
+    
+    #convertir de regex a AFD
+    exp= input("Ingrese una expresion: ")
+    regext = regex(exp,True)
+    print(regext)
+    

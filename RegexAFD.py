@@ -14,7 +14,7 @@ def regex(expresion, isAFD=False):
     
     #Primer caso especial 
     if expresion.find(SpecialCases['positive_closure_group']) != -1:
-        while i < len(expresion):
+        for i in range(len(regex)):
             if expresion[i] == '(':
                 first.append(expresion[i]) #guarda index
                 
@@ -31,11 +31,11 @@ def regex(expresion, isAFD=False):
             else:
                 regex_list.append(expresion[i]) #si no es el cierre del parentesis lo agrega a la lista
             
-            i=i+1 #cambio de i 
+         
             
     #Segundo caso especial
     if expresion.find(SpecialCases['null_check_group']) != -1:
-        while i < len(expresion):
+        for i in range(len(regex)):
             if expresion[i] == '(':
                 first.append(i)                        
 
@@ -53,7 +53,6 @@ def regex(expresion, isAFD=False):
 
             else:
                 regex_list.append(expresion[i])
-            i += 1
 
         expresion = ''.join(regex_list)
 
@@ -77,34 +76,32 @@ def regex(expresion, isAFD=False):
                 
                 
     if(isAFD == True):
-        final_regex = '(' + final_regex + ')#'
+        resultado = '(' + resultado + ')#'
         
     return concatenacion(resultado)
     
 def concatenacion(regex):
-    valid_operators = ['(','*','|','?','+']
+    operadores = ['(','*','|','?','+']
     encadenado = ''
-    i = 0
     
-    while i < len(regex):
+    for i in range(len(regex)):
         if i+1 >= len(regex):
             encadenado += regex[-1]
             break
-        if regex[i] == '*' and regex[i+1] != ')' and not (regex[i+1] in valid_operators):
+        if regex[i] == '*' and regex[i+1] != ')' and not (regex[i+1] in operadores):
             encadenado += regex[i]+'.'
         elif regex[i] == '*' and regex[i+1] == '(':
             encadenado += regex[i]+'.'
-        elif regex[i] == '?' and regex[i+1] != ')' and not (regex[i+1] in valid_operators):
+        elif regex[i] == '?' and regex[i+1] != ')' and not (regex[i+1] in operadores):
             encadenado += regex[i]+'.'
         elif regex[i] == '?' and regex[i+1] == '(':
             encadenado += regex[i]+'.'
-        elif not (regex[i] in valid_operators) and regex[i+1] == ')':
+        elif not (regex[i] in operadores) and regex[i+1] == ')':
             encadenado += regex[i]
-        elif (not (regex[i] in valid_operators) and not (regex[i+1] in valid_operators)) or (not (regex[i] in valid_operators) and (regex[i+1] == '(')):
+        elif (not (regex[i] in operadores) and not (regex[i+1] in operadores)) or (not (regex[i] in operadores) and (regex[i+1] == '(')):
             encadenado += regex[i]+'.'
         else:
             encadenado += regex[i]
-        i += 1
         
     return encadenado
     
