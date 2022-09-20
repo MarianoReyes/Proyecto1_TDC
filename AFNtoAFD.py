@@ -15,6 +15,10 @@ class AFNtoAFD():
         self.simbolos_afn = simbolos_afn
         self.afn = afn
 
+        self.estados_afd = []
+        self.estados_iniciales_afd = []
+        self.estados_finales_afd = []
+        self.afd = []
 
     def e_closure_past(self, estado, list_estados):
         list_estados.append(estado)
@@ -131,12 +135,16 @@ class AFNtoAFD():
 
         string_afd = tablita_feliz.to_string()     
 
+        self.estados_afd = estados_afd
+        self.estados_iniciales_afd = estados_iniciales
+        self.estados_finales_afd = estados_finales
+
         if os.path.exists("afd.txt"):
             print("\nArchivo AFD existente")
 
         else:
             with open('afd.txt', 'a', encoding="utf-8") as f:
-                f.write("AFD  a partir de una AFN -->")
+                f.write("AFD a partir de un AFN -->")
                 f.write("\n")
                 f.write("Símbolos: "+', '.join(self.simbolos_afn))
                 f.write("\n")
