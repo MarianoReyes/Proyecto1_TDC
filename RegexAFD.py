@@ -77,6 +77,7 @@ def regex(expresion, isAFD=False):
                 
     if(isAFD == True):
         resultado = '(' + resultado + ')#'
+        # El # avisa que es el final de la expresion
         
     return concatenacion(resultado)
     

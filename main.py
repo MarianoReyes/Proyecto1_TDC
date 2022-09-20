@@ -41,4 +41,5 @@ if __name__ == '__main__':
     exp= input("Ingrese una expresion: ")
     regext = regex(exp,True)
     print(regext)
+    prueba=input("Ingrese el string para la simulacion: ")
     
