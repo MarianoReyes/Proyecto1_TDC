@@ -1,6 +1,7 @@
 from RegexToPostfix import convertExpression
 from PostfixToAFN import PostifixToAFN
 from AFNtoAFD import AFNtoAFD
+from StringRevision import StringRevision
 
 # main del programa
 if __name__ == '__main__':
@@ -38,3 +39,9 @@ if __name__ == '__main__':
 
     # llamada al metodo para convertir a AFD
     conversionAFD.conversion()
+
+    # instancia de clase para revisar si un string pertenece a una Regex
+    verificacion = StringRevision(exp,prueba)
+
+    # llamada a la verificacion de los strings
+    verificacion.comprobar()

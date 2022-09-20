@@ -133,7 +133,9 @@ class AFNtoAFD():
 
         #print(tablita_feliz)    
 
-        string_afd = tablita_feliz.to_string()     
+        string_afd = tablita_feliz.to_string()  
+
+        self.afd = final_feliz   
 
         self.estados_afd = estados_afd
         self.estados_iniciales_afd = estados_iniciales
