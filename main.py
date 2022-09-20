@@ -44,5 +44,6 @@ if __name__ == '__main__':
     print(regext)
     prueba=input("Ingrese el string para la simulacion: ")
     
+    
     syntax = AFD(regext)
     

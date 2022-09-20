@@ -1,4 +1,4 @@
-class Node():
+class Arbol():
     def __init__(self, name, nodos, isDirect = False):
         self.name = name
         self.id = None
