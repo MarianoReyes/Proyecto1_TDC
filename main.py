@@ -10,7 +10,7 @@ if __name__ == '__main__':
     # Expresion de prueba: (b|b)*abb(a|b)*
     # Simbolo epsilon  ε
     exp = input("\nIngrese una expresion a convertir: ")
-    prueba=input("\nIngrese el string para la simulacion: ")
+    
     #exp = "(b|b)*abb(a|b)*"
     print("\nRegex: ", exp)
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     regext = regex(exp,True)
     #print('\n', regext)
     
-    
+    prueba=input("\nIngrese el string para la simulacion: ")
     
     syntax = AFD(regext)
     respuesta = syntax.simulate_string(prueba)
