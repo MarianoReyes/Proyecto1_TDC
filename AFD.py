@@ -312,7 +312,7 @@ class AFD():
 
         if self.final_state in [u for u in s0_AFD.conjunto_nodos]:
             self.acc_states.append(s0_AFD.name)
-            print(s0_AFD.name)
+            # print(s0_AFD.name)
 
         while not self.state_is_marked():
             T = self.state_is_unmarked()
@@ -336,7 +336,7 @@ class AFD():
                     # print(fp)
                     if self.final_state in [u for u in U.conjunto_nodos]:
                         self.acc_states.append(U.name)
-                        print(U.name)
+                        # print(U.name)
                     self.states.append(U)
                     # print((T.conjunto_nodos, s, U.conjunto_nodos))
                     self.transitions.append((T.name, s, U.name))
