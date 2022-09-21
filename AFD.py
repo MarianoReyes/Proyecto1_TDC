@@ -37,6 +37,7 @@ class AFD():
         self.create_dfa()
         self.estados=[]
         self.simbolos=[]
+        self.aceptados=[]
         for state in self.states:
             self.estados.append(state.name)
         for hoja in self.symbols:
@@ -44,6 +45,8 @@ class AFD():
                 self.simbolos.append(hoja)
             else:
                 pass
+        for aceptado in self.acc_states:
+            self.aceptados.append(aceptado)
         
         nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFD convertido de la Regex de manera directa -> ')
 
@@ -62,8 +65,8 @@ class AFD():
                 f.write("\n")
                 f.write("Estado inicial: " + str(self.init_state))
                 f.write("\n")
-                # f.write("Estados de aceptación:" + str(estados_finales) )
-                # f.write("\n")
+                f.write("Estados de aceptación:" + str(self.aceptados) )
+                f.write("\n")
                 f.write("Transiciones: " + str(self.transitions))
 
             print("\nArchivo de AFD directo escrito con éxito")
@@ -333,7 +336,7 @@ class AFD():
                     # print(fp)
                     if self.final_state in [u for u in U.conjunto_nodos]:
                         self.acc_states.append(U.name)
-                    
+                        print(U.name)
                     self.states.append(U)
                     # print((T.conjunto_nodos, s, U.conjunto_nodos))
                     self.transitions.append((T.name, s, U.name))
