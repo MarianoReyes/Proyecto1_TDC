@@ -1,0 +1,5 @@
+AFD a partir de un regex -->
+Símbolos: ['b', 'a']
+Estados:  ['S', 'A', 'B', 'C']
+Estado inicial: S
+Transiciones: [('S', 'b', 'S'), ('S', 'a', 'A'), ('A', 'b', 'B'), ('B', 'b', 'C'), ('C', 'b', 'C'), ('C', 'a', 'C')]

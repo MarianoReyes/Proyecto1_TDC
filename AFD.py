@@ -3,6 +3,8 @@ from turtle import st
 from Node import Arbol
 from leaf import Leaf
 import functools
+import os.path
+
 
 
 class AFD():
@@ -33,6 +35,34 @@ class AFD():
         self.calculate_followpow()
         # print(self.follow_pos)
         self.create_dfa()
+        self.estados=[]
+        self.simbolos=[]
+        for state in self.states:
+            self.estados.append(state.name)
+        for hoja in self.symbols:
+            if isinstance(hoja, str):
+                self.simbolos.append(hoja)
+            else:
+                pass
+        if os.path.exists("afd_directo.txt"):
+            print("\nArchivo AFD existente")
+
+        else:
+            with open('afd_directo.txt', 'a', encoding="utf-8") as f:
+                f.write("AFD a partir de un regex -->")
+                f.write("\n")
+                f.write("Símbolos: "+ str(self.simbolos))
+                f.write("\n")
+                f.write("Estados:  " + str(self.estados))
+                f.write("\n")
+                f.write("Estado inicial: " + str(self.init_state))
+                f.write("\n")
+                # f.write("Estados de aceptación:" + str(estados_finales) )
+                # f.write("\n")
+                f.write("Transiciones: " + str(self.transitions))
+
+            print("\nArchivo de AFD directo escrito con éxito")
+
         
     def build_tree(self,regex):
         stack =[] #guarda simbolos
@@ -308,7 +338,7 @@ class AFD():
                             self.transitions.append((T.name, s, estado.name))
                             # print((T.conjunto_nodos, s, estado.conjunto_nodos))
                             
-        print(len(self.acc_states))
+        
     
     # Obtiene el estado unmarked
     def state_is_unmarked(self):
