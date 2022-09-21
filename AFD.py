@@ -45,12 +45,15 @@ class AFD():
             else:
                 pass
         
+        nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFD convertido de la Regex de manera directa -> ')
+
+        nombre_archivo = nombre_archivo + '.txt'
             
-        if os.path.exists("afd_directo.txt"):
+        if os.path.exists(nombre_archivo):
             print("\nArchivo AFD existente")
 
         else:
-            with open('afd_directo.txt', 'a', encoding="utf-8") as f:
+            with open(nombre_archivo, 'a', encoding="utf-8") as f:
                 f.write("AFD a partir de un regex -->")
                 f.write("\n")
                 f.write("Símbolos: "+ str(self.simbolos))

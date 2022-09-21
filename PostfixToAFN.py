@@ -141,12 +141,16 @@ class PostifixToAFN():
                 ef = i
             self.estados_list.append(str(self.estados[i]))
         self.estados_list = ", ".join(self.estados_list)
+
+        nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFN convertido de la Regex -> ')
+
+        nombre_archivo = nombre_archivo + '.txt'
         
-        if os.path.exists("afn_regex.txt"):
+        if os.path.exists(nombre_archivo):
             print("\nArchivo AFN existente")
 
         else:
-            with open('afn_regex.txt', 'a', encoding="utf-8") as f:
+            with open(nombre_archivo, 'a', encoding="utf-8") as f:
                 f.write("AFN  a partir de la Expresión Regular -->")
                 f.write("\n")
                 f.write("Símbolos: "+', '.join(simbolos))

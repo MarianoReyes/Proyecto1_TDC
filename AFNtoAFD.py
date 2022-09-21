@@ -141,11 +141,15 @@ class AFNtoAFD():
         self.estados_iniciales_afd = estados_iniciales
         self.estados_finales_afd = estados_finales
 
-        if os.path.exists("afd.txt"):
+        nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFD convertido del AFN -> ')
+
+        nombre_archivo = nombre_archivo + '.txt'
+
+        if os.path.exists(nombre_archivo):
             print("\nArchivo AFD existente")
 
         else:
-            with open('afd.txt', 'a', encoding="utf-8") as f:
+            with open(nombre_archivo, 'a', encoding="utf-8") as f:
                 f.write("AFD a partir de un AFN -->")
                 f.write("\n")
                 f.write("Símbolos: "+', '.join(self.simbolos_afn))

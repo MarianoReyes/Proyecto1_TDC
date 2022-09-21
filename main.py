@@ -9,7 +9,9 @@ from StringRevision import StringRevision
 if __name__ == '__main__':
     # Expresion de prueba: (b|b)*abb(a|b)*
     # Simbolo epsilon  ε
-    exp = "(b|b)*abb(a|b)*"
+    exp = input("\nIngrese una expresion a convertir: ")
+    prueba=input("\nIngrese el string para la simulacion: ")
+    #exp = "(b|b)*abb(a|b)*"
     print("\nRegex: ", exp)
 
     conversion = convertExpression(len(exp))
@@ -40,19 +42,18 @@ if __name__ == '__main__':
     conversionAFD.conversion()
     
     #convertir de regex a AFD
-    exp= input("Ingrese una expresion: ")
     regext = regex(exp,True)
-    print(regext)
-    prueba=input("Ingrese el string para la simulacion: ")
+    #print('\n', regext)
+    
     
     
     syntax = AFD(regext)
     respuesta = syntax.simulate_string(prueba)
-    print(f'\nIs {prueba} accepted in {exp}? -> ', respuesta)
+    
     
 
     # instancia de clase para revisar si un string pertenece a una Regex
     verificacion = StringRevision(exp,prueba)
-
+    print(f'\nEl string {prueba} es aceptado en la expresión regular {exp}? -> ', respuesta)
     # llamada a la verificacion de los strings
     verificacion.comprobar()
