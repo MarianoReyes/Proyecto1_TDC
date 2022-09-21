@@ -2,6 +2,7 @@
 from turtle import st
 from Node import Arbol
 from leaf import Leaf
+import functools
 
 
 class AFD():
@@ -30,7 +31,7 @@ class AFD():
                 break
         
         self.calculate_followpow()
-        print(self.follow_pos)
+        # print(self.follow_pos)
         self.create_dfa()
         
     def build_tree(self,regex):
@@ -266,12 +267,12 @@ class AFD():
     # Genera los nodos y transiciones para el AFD
     def create_dfa(self):
         s0 = self.root.first_pos
-        print(s0)
+        # print(s0)
         s0_AFD = Arbol(self.get_name(), s0, True)
         self.states.append(s0_AFD)
         self.init_state = s0_AFD.name
 
-        if self.final_state in [u for u in s0_AFD.node_set]:
+        if self.final_state in [u for u in s0_AFD.conjunto_nodos]:
             self.acc_states.append(s0_AFD.name)
 
         while not self.state_is_marked():
@@ -282,7 +283,7 @@ class AFD():
             for s in self.symbols:
                 fp = []
                 
-                for u in T.node_set:
+                for u in T.conjunto_nodos:
                     if self.get_leaf(u).name == s:
                         fp += self.follow_pos[u]
                 fp = {a for a in fp}
@@ -293,19 +294,21 @@ class AFD():
                 U = Arbol(self.get_name(), fp, True)
 
                 if U.id not in [n.id for n in self.states]:
-                    print(fp)
-                    if self.final_state in [u for u in U.node_set]:
+                    # print(fp)
+                    if self.final_state in [u for u in U.conjunto_nodos]:
                         self.acc_states.append(U.name)
                     
                     self.states.append(U)
-                    print((T.node_set, s, U.node_set))
+                    # print((T.conjunto_nodos, s, U.conjunto_nodos))
                     self.transitions.append((T.name, s, U.name))
                 else:
                     self.count -= 1
                     for estado in self.states:
                         if U.id == estado.id:
                             self.transitions.append((T.name, s, estado.name))
-                            print((T.node_set, s, estado.node_set))
+                            # print((T.conjunto_nodos, s, estado.conjunto_nodos))
+                            
+        print(len(self.acc_states))
     
     # Obtiene el estado unmarked
     def state_is_unmarked(self):
