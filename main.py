@@ -47,6 +47,8 @@ if __name__ == '__main__':
     
     
     syntax = AFD(regext)
+    respuesta = syntax.simulate_string(prueba)
+    print(f'\nIs {prueba} accepted in {exp}? -> ', respuesta)
     
 
     # instancia de clase para revisar si un string pertenece a una Regex
