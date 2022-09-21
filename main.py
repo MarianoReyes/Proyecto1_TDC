@@ -44,16 +44,24 @@ if __name__ == '__main__':
     #convertir de regex a AFD
     regext = regex(exp,True)
     #print('\n', regext)
-    
-    prueba=input("\nIngrese el string para la simulacion: ")
-    
+
     syntax = AFD(regext)
+    
+    print('\nIngrese un string para simular la regex: ',exp)
+    prueba=input("-> ")
+    
+    
     respuesta = syntax.simulate_string(prueba)
     
     
 
     # instancia de clase para revisar si un string pertenece a una Regex
     verificacion = StringRevision(exp,prueba)
-    print(f'\nEl string {prueba} es aceptado en la expresión regular {exp}? -> ', respuesta)
     # llamada a la verificacion de los strings
     verificacion.comprobar()
+    print(f'\nEl string {prueba} es aceptado en la expresión regular {exp}? -> ', respuesta)
+
+    print('\nPrograma finalizado con éxito!!')
+    print('GG\'s guys and see you next time! :D')
+    
+    
