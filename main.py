@@ -3,6 +3,7 @@ from PostfixToAFN import PostifixToAFN
 from AFNtoAFD import AFNtoAFD
 from RegexAFD import *
 from AFD import AFD
+from StringRevision import StringRevision
 
 # main del programa
 if __name__ == '__main__':
@@ -47,3 +48,9 @@ if __name__ == '__main__':
     
     syntax = AFD(regext)
     
+
+    # instancia de clase para revisar si un string pertenece a una Regex
+    verificacion = StringRevision(exp,prueba)
+
+    # llamada a la verificacion de los strings
+    verificacion.comprobar()
