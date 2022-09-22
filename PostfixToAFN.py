@@ -166,3 +166,4 @@ class PostifixToAFN():
                 f.write(string_afn)
 
             print("\nArchivo de AFN escrito con éxito")
+
