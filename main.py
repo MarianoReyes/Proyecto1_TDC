@@ -63,7 +63,7 @@ if __name__ == '__main__':
     syntax = AFD(regext)
     
     # simulacion de string
-    print('\nIngrese un string para simular la regex en AFD: ',exp)
+    print('\nIngrese un string para simular si es aceptable o no en la expresión regular: ',exp)
     prueba=input("-> ")
     respuesta = syntax.simulate_string(prueba)
     print(f'\nEl string {prueba} es aceptado en la expresión regular {exp}? -> ', respuesta)
