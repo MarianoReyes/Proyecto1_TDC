@@ -24,6 +24,7 @@ if __name__ == '__main__':
 
     # instancia de clase para convertir a AFN
     conversionAFN = PostifixToAFN(postfix)
+    
     # llamada a metodo para convertir afn
     conversionAFN.conversion()
 
@@ -38,6 +39,7 @@ if __name__ == '__main__':
     # instacia de clase para convertir AFN a AFD
     conversionAFD = AFNtoAFD(estados, transiciones,
                              estado_inicial, estado_final, simbolos, afn)
+    
     # llamada al metodo para convertir a AFD
     conversionAFD.conversion()
     
@@ -55,14 +57,9 @@ if __name__ == '__main__':
 
     # llamada al metodo para convertir a AFD
     minimizacion.reIstanciate()
-    print("AFD Minimizado")
-    print(minimizacion.dfa_minimizado.estadosAFD)
 
-    
     #convertir de regex a AFD
     regext = regex(exp,True)
-    #print('\n', regext)
-
     syntax = AFD(regext)
     
     # simulacion de string

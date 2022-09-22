@@ -1,3 +1,6 @@
+import time
+import timeit
+
 class convertExpression:
     # Constructor to initialize the class variables
     def __init__(self, longitud):
@@ -78,6 +81,7 @@ class convertExpression:
     # Funcion principal que retorna la expresion regular a postfix
     def RegexToPostfix(self, exp):
         print("\nConvirtiendo Regex a Postfix...")
+        t0 = time.perf_counter()
         exp = self.addPuntos(exp)
         # se itera sobre cada caracter de la expresion
         for i in exp:
@@ -114,3 +118,6 @@ class convertExpression:
             self.output.append(self.pop())
 
         self.res = "".join(self.output)
+        t1 = time.perf_counter()
+
+        print('\nTiempo para pasar a postfix: ', t1-t0)

@@ -5,7 +5,7 @@ CLASE DEDICADA A LA CONVERSION DE UNA EXPRESION POSTFIX A AFN
 from re import S
 import pandas as pd
 import os.path
-
+import time
 
 class PostifixToAFN():
     def __init__(self, postfix):
@@ -27,6 +27,7 @@ class PostifixToAFN():
 
     def conversion(self):
         print("\nConvirtiendo de Postfix a AFN...")
+        t0 = time.perf_counter()
         simbolos = []
         postfix = self.postfix
         for i in postfix:
@@ -141,11 +142,12 @@ class PostifixToAFN():
                 ef = i
             self.estados_list.append(str(self.estados[i]))
         self.estados_list = ", ".join(self.estados_list)
+        t1 = time.perf_counter()
 
         nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFN convertido de la Regex -> ')
 
         nombre_archivo = nombre_archivo + '.txt'
-        
+
         if os.path.exists(nombre_archivo):
             print("\nArchivo AFN existente")
 
@@ -167,3 +169,4 @@ class PostifixToAFN():
 
             print("\nArchivo de AFN escrito con éxito")
 
+        print('\nEl tiempo para pasar de regex/postfix a AFN es: ',t1-t0)

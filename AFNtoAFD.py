@@ -3,7 +3,7 @@ CLASE DEDICADA A LA CONVERSION DE UN AFN A UN AFD
 '''
 import pandas as pd
 import os.path
-
+import time
 
 class AFNtoAFD():
     def __init__(self, estados_afn, transiciones_afn, estado_inicial_afn, estado_final_afn, simbolos_afn, afn):
@@ -55,6 +55,7 @@ class AFNtoAFD():
 
     def conversion(self):
         print("\nConvirtiendo de AFN a AFD...")
+        t0 = time.perf_counter()
         #afn = self.afn
         numero_estados = len(self.estados_afn)
         numero_transiciones = len(self.transiciones_afn)
@@ -141,6 +142,8 @@ class AFNtoAFD():
         self.estados_iniciales_afd = estados_iniciales
         self.estados_finales_afd = estados_finales
 
+        t1 = time.perf_counter()
+
         nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFD convertido del AFN -> ')
 
         nombre_archivo = nombre_archivo + '.txt'
@@ -164,13 +167,4 @@ class AFNtoAFD():
 
             print("\nArchivo de AFD escrito con éxito")
 
-
-
-        
-
-                    
-
-
-
-        
-
+        print('\nEl tiempo para pasar de AFN a AFD es: ',t1-t0)

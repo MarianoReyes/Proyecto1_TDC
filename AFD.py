@@ -4,7 +4,7 @@ from Node import Arbol
 from leaf import Leaf
 import functools
 import os.path
-
+import time
 
 
 class AFD():
@@ -22,7 +22,9 @@ class AFD():
         self.id = 0
         self.final_state = None
         self.follow_pos = {}
+        self.time_total = 0
         
+        t0 = time.perf_counter()
         self.build_tree(regex) #Se construye el arbol con la expresion dada
         
         #Funcion que termina proceso al encontrar el simbolo 
@@ -34,7 +36,8 @@ class AFD():
         
         self.calculate_followpow()
         # print(self.follow_pos)
-        self.create_dfa()
+        self.creacion_afd()
+        t1 = time.perf_counter()
         self.estados=[]
         self.simbolos=[]
         self.aceptados=[]
@@ -48,6 +51,8 @@ class AFD():
         for aceptado in self.acc_states:
             self.aceptados.append(aceptado)
         
+        
+
         nombre_archivo = input('\nIngrese el nombre del archivo para guardar el AFD convertido de la Regex de manera directa -> ')
 
         nombre_archivo = nombre_archivo + '.txt'
@@ -70,6 +75,8 @@ class AFD():
                 f.write("Transiciones: " + str(self.transitions))
 
             print("\nArchivo de AFD directo escrito con éxito")
+
+        print('\nEl tiempo para pasar de Regex a AFD  de manera directa es: ',t1-t0)
 
         
     def build_tree(self,regex):
@@ -303,7 +310,7 @@ class AFD():
         return name * self.rounds          
 
     # Genera los nodos y transiciones para el AFD
-    def create_dfa(self):
+    def creacion_afd(self):
         s0 = self.root.first_pos
         # print(s0)
         s0_AFD = Arbol(self.get_name(), s0, True)
@@ -346,7 +353,6 @@ class AFD():
                         if U.id == estado.id:
                             self.transitions.append((T.name, s, estado.name))
                             # print((T.conjunto_nodos, s, estado.conjunto_nodos))
-                            
         
     
     # Obtiene el estado unmarked

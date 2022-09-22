@@ -207,17 +207,17 @@ class minimizar (object):
 		nuevos_estados = self.nuevos_estados(clases_distinguidas)
 		nuevos_finales = self.nuevos_estados_finales(clases_distinguidas)
 		nuevo_inicial = self.nuevo_estado_inicial(clases_distinguidas)
-
+		
 		self.dfa_minimizado = minimizar(nuevos_estados, nuevos_finales, nuevo_inicial, self.simbolosAFD, self.afd)
 
 		self.nueva_afd(self.dfa_minimizado, clases_distinguidas)
 		
 		lista = estados_finalesAFD
-		self.fixEstadosResultantes(lista)
+		print('\nAFD minimizado')
 
-	def fixEstadosResultantes(self, lista):
-		new_estados = []
-		for estados in lista: new_estados.extend(estados.split("Q"))
-		new_estados = [f'Q{num_estado}' for num_estado in new_estados]
-
+""" 	def fixEstadosResultantes(self, lista):
+			new_estados = []
+			for estados in lista: new_estados.extend(estados.split("Q"))
+			new_estados = [f'Q{num_estado}' for num_estado in new_estados] """
+ 
 	
