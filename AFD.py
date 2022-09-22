@@ -396,7 +396,7 @@ class AFD():
             if start == None:
                 return 'no'
         if start in self.acc_states:
-            return 'Zi'
+            return 'si'
         return 'no'
 
         
