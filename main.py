@@ -40,6 +40,24 @@ if __name__ == '__main__':
     # llamada al metodo para convertir a AFD
     conversionAFD.conversion()
     
+    #Lista para Minimizacion de AFD
+    estadosAFD = conversionAFD.estados_afd
+    estados_finalesAFD = conversionAFD.estados_finales_afd
+    estado_inicialesAFD = conversionAFD.estados_iniciales_afd
+    simbolosAFD = conversionAFD.simbolos_afn
+    afd = conversionAFD.afd
+
+    
+    # instacia de clase para Minimizacion de AFD
+    minimizacion = minimizar(estadosAFD, estados_finalesAFD, 
+                            estado_inicialesAFD, simbolosAFD, afd)
+
+    # llamada al metodo para convertir a AFD
+    minimizacion.reIstanciate()
+    print("AFD Minimizado")
+    print(minimizacion.dfa_minimizado.estadosAFD)
+
+    
     #convertir de regex a AFD
     regext = regex(exp,True)
     #print('\n', regext)
