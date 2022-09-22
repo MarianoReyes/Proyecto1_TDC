@@ -3,6 +3,7 @@ from PostfixToAFN import PostifixToAFN
 from AFNtoAFD import AFNtoAFD
 from RegexAFD import *
 from AFD import AFD
+from minimizar import minimizar
 
 # main del programa
 if __name__ == '__main__':
