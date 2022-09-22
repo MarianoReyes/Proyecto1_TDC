@@ -1,3 +1,10 @@
+"""
+Generador de Automatas AFN y AFD a partir de una REGEX
+José Mariano Reyes 20074
+Andrea Lam 20102
+Kenneth Gálvez 20079
+"""
+
 from RegexToPostfix import convertExpression
 from PostfixToAFN import PostifixToAFN
 from AFNtoAFD import AFNtoAFD
